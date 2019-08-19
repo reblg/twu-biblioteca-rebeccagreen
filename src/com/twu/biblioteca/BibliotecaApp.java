@@ -25,11 +25,18 @@ public class BibliotecaApp {
         checkedOutBook.setCheckedOut(true);
         bookList.add(checkedOutBook);
 
+        ArrayList<Movie> movieList = new ArrayList<Movie>();
+
+        movieList.add(new Movie("Shrek", "DreamWorks", "2001", "10"));
+        movieList.add(new Movie("Shrek 2", "DreamWorks", "2004", "9"));
+        movieList.add(new Movie("Shrek The Third", "DreamWorks", "2007", "5"));
+//        Movie checkedOutBook = new Movie("hp", "jk", "2012");
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         PrintStream printStream = new PrintStream(System.out);
         BibliotecaAppView bibliotecaAppView = new BibliotecaAppView(printStream);
 
-        Library lib = new Library(printStream, bookList);
+        Library lib = new Library(printStream, bookList, movieList);
         BibliotecaApp app = new BibliotecaApp(lib, reader, bibliotecaAppView);
 
         app.start();
@@ -55,6 +62,10 @@ public class BibliotecaApp {
             else if(choice.equals("3")) {
                 returnBookSequence();
                 bibliotecaAppView.displayOptionMenu();
+                choice = getUserInput().toLowerCase();
+            }
+            else if(choice.equals("4")) {
+                library.printMovieList();
                 choice = getUserInput().toLowerCase();
             }
             else if(choice.equals("q")){

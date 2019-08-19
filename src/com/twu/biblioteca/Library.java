@@ -7,11 +7,12 @@ public class Library {
 
     private PrintStream printStream;
     private ArrayList<Book> bookList;
+    private ArrayList<Movie> movieList;
 
-    public Library(PrintStream printStream, ArrayList<Book> bookList) {
-
+    public Library(PrintStream printStream, ArrayList<Book> bookList, ArrayList<Movie> movieList) {
         this.printStream = printStream;
         this.bookList = bookList;
+        this.movieList = movieList;
     }
 
     public void printBooklist(){
@@ -19,6 +20,12 @@ public class Library {
             if(!book.getCheckedOut()) {
                 book.printBook(printStream);
             }
+        }
+    }
+
+    public void printMovieList() {
+        for (Movie movie : movieList){
+                movie.printMovie(printStream);
         }
     }
 

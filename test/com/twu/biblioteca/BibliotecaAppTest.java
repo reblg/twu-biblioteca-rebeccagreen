@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertFalse;
@@ -23,12 +24,15 @@ public class BibliotecaAppTest {
     private ArrayList<Book> bookListWithOneCheckedOutBook;
     private ArrayList<Book> bookListWithOneRealBook;
 
-//    private Library libraryWithOneRealBook;
+    private ArrayList<Movie> movieListWithOneMockMovie;
+
 
     private Book mockBook;
     private Book mockBook2;
     private Book mockCheckOutBook;
     private Book nineteenEightFour;
+
+    private Movie mockMovie;
 
     @Before
     public void setUp() {
@@ -68,8 +72,16 @@ public class BibliotecaAppTest {
 
         bookListWithOneRealBook.add(nineteenEightFour);
 
-////        library
-//        libraryWithOneRealBook = new Library(mockPrintStream, bookListWithOneRealBook);
+        //        movielist
+        movieListWithOneMockMovie = new ArrayList<Movie>();
+
+
+//        movies
+        mockMovie = mock(Movie.class);
+
+////    constructed Movie List
+        movieListWithOneMockMovie.add(mockMovie);
+
 
     }
 
@@ -98,7 +110,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldPrintOneBookWhenOption1IsSelectedAndThereIsOneBookInTheLibrary() throws IOException {
-        Library libWithMockBook = new Library(mockPrintStream, bookListWithOneMockBook);
+        Library libWithMockBook = new Library(mockPrintStream, bookListWithOneMockBook, movieListWithOneMockMovie);
 
         app = new BibliotecaApp(libWithMockBook, mockBufferedReader, mockBibliotecaAppView);
 
@@ -111,7 +123,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldPrintTwoBooksWhenOption1IsSelectedAndThereAreTwoBooksInTheLibrary() throws IOException {
-        Library libWithTwoMockBooks = new Library(mockPrintStream, bookListWithTwoMockBooks);
+        Library libWithTwoMockBooks = new Library(mockPrintStream, bookListWithTwoMockBooks, movieListWithOneMockMovie);
         app = new BibliotecaApp(libWithTwoMockBooks, mockBufferedReader, mockBibliotecaAppView);
 
         when(mockBufferedReader.readLine()).thenReturn("1").thenReturn("q");
@@ -153,7 +165,7 @@ public class BibliotecaAppTest {
     @Test
     public void libraryShouldNotDisplayAnythingIfOnlyBookInLibraryIsCheckedOut() throws IOException {
 
-        Library lib = new Library(mockPrintStream, bookListWithOneCheckedOutBook);
+        Library lib = new Library(mockPrintStream, bookListWithOneCheckedOutBook, movieListWithOneMockMovie);
         app = new BibliotecaApp(lib, mockBufferedReader, mockBibliotecaAppView);
 
         when(mockCheckOutBook.getCheckedOut()).thenReturn(true);
@@ -167,7 +179,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldCheckOutBookIfUserChecksOutBook() throws IOException {
-        Library lib = new Library(mockPrintStream, bookListWithOneRealBook);
+        Library lib = new Library(mockPrintStream, bookListWithOneRealBook, movieListWithOneMockMovie);
 
         app = new BibliotecaApp(lib, mockBufferedReader, mockBibliotecaAppView);
 
@@ -183,7 +195,7 @@ public class BibliotecaAppTest {
     public void shouldDisplayUnsuccessfulCheckOutMessageIfCannotCheckOutBook() throws IOException {
         nineteenEightFour.setCheckedOut(true);
 
-        Library lib = new Library(mockPrintStream, bookListWithOneRealBook);
+        Library lib = new Library(mockPrintStream, bookListWithOneRealBook, movieListWithOneMockMovie);
         app = new BibliotecaApp(lib, mockBufferedReader, mockBibliotecaAppView);
 
         when(mockBufferedReader.readLine()).thenReturn("2").thenReturn("1984").thenReturn("q");
@@ -197,7 +209,7 @@ public class BibliotecaAppTest {
     public void shouldReturnBookIfUserReturnsBook() throws IOException {
         nineteenEightFour.setCheckedOut(true);
 
-        Library lib = new Library(mockPrintStream, bookListWithOneRealBook);
+        Library lib = new Library(mockPrintStream, bookListWithOneRealBook, movieListWithOneMockMovie);
         app = new BibliotecaApp(lib, mockBufferedReader, mockBibliotecaAppView);
 
         when(mockBufferedReader.readLine()).thenReturn("3").thenReturn("1984").thenReturn("q");
@@ -213,7 +225,7 @@ public class BibliotecaAppTest {
     public void shouldDisplayUnsuccessfulReturnMessageIfCannotBeReturned() throws IOException {
         nineteenEightFour.setCheckedOut(true);
 
-        Library lib = new Library(mockPrintStream, bookListWithOneRealBook);
+        Library lib = new Library(mockPrintStream, bookListWithOneRealBook, movieListWithOneMockMovie);
 
         app = new BibliotecaApp(lib, mockBufferedReader, mockBibliotecaAppView);
 
@@ -222,6 +234,18 @@ public class BibliotecaAppTest {
         app.start();
 
         verify(mockBibliotecaAppView).displayBookReturnUnsuccessfulMessage();
+    }
+
+    @Test
+    public void shouldDisplayOneMovieWhenOption4IsSelectedAndThereIsOneMovieInTheLibrary() throws IOException {
+        Library libWithMockMovie = new Library(mockPrintStream, bookListWithOneMockBook, movieListWithOneMockMovie);
+
+        app = new BibliotecaApp(libWithMockMovie, mockBufferedReader, mockBibliotecaAppView);
+
+        when(mockBufferedReader.readLine()).thenReturn("4").thenReturn("q");
+        app.start();
+
+        verify(mockMovie).printMovie(mockPrintStream);
     }
 
 }
