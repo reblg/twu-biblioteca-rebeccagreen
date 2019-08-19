@@ -59,10 +59,12 @@ public class BibliotecaApp {
             else if(choice.equals("2")) {
                 library.printBooklist();
                 checkOutBookSequence();
+                bibliotecaAppView.displayOptionMenu();
                 choice = getUserInput().toLowerCase();
             }
             else if(choice.equals("3")) {
                 returnBookSequence();
+                bibliotecaAppView.displayOptionMenu();
                 choice = getUserInput().toLowerCase();
             }
             else if(choice.equals("q")){
@@ -79,11 +81,19 @@ public class BibliotecaApp {
     }
 
     private void returnBookSequence() throws IOException {
-       bibliotecaAppView.askWhichBookToReturn();
-       String bookTitleToReturn = getUserInput();
-       Book bookToReturn = library.findBookByTitle(bookTitleToReturn);
-       bookToReturn.setCheckedOut(false);
-       bibliotecaAppView.displayBookReturnConfirmation(bookToReturn);
+
+        bibliotecaAppView.askWhichBookToReturn();
+
+        String bookTitleToReturn = getUserInput();
+
+        Book bookToReturn = library.findBookByTitle(bookTitleToReturn);
+        if(bookToReturn != null) {
+            bookToReturn.setCheckedOut(false);
+            bibliotecaAppView.displayBookReturnConfirmation(bookToReturn);
+        } else {
+            bibliotecaAppView.displayBookReturnUnsuccessfulMessage();
+        }
+
     }
 
     private void checkOutBookSequence() throws IOException {

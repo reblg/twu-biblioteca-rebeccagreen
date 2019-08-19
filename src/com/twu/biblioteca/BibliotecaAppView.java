@@ -49,4 +49,9 @@ public class BibliotecaAppView {
     public void displayBookReturnConfirmation(Book book) {
         printStream.println("You successfully returned " + book.getTitle());
     }
+
+    public void displayBookReturnUnsuccessfulMessage() {
+        printStream.println("Error returning requested item");
+        printStream.println("Please enter a valid title.");
+    }
 }

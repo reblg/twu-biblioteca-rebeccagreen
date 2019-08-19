@@ -236,4 +236,23 @@ public class BibliotecaAppTest {
         verify(mockBibliotecaAppView).displayBookReturnConfirmation(book);
     }
 
+    @Test
+    public void shouldDisplayUnsuccessfulReturnMessageIfCannotBeReturned() throws IOException {
+        ArrayList<Book> bookList = new ArrayList<Book>();
+        Book book = new Book("1984", "GO", "2000");
+        book.setCheckedOut(true);
+        bookList.add(book);
+
+        OutputStream mockOutputStream = mock(OutputStream.class);
+        PrintStream printStream = new PrintStream(mockOutputStream);
+        Library lib = new Library(mockPrintStream, bookList);
+        app = new BibliotecaApp(lib, mockOutputStream, printStream, bufferedReader, mockBibliotecaAppView);
+
+        when(bufferedReader.readLine()).thenReturn("3").thenReturn("hp").thenReturn("q");
+
+        app.start();
+
+        verify(mockBibliotecaAppView).displayBookReturnUnsuccessfulMessage();
+    }
+
 }
