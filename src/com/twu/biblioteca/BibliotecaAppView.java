@@ -20,10 +20,19 @@ public class BibliotecaAppView {
     public void displayOptionMenu() {
         printStream.println("Options");
         printStream.println("1 - List of Books");
+        printStream.println("2 - Check out a book");
         printStream.println("Please Enter the Number of Your Choice Here: ");
     }
 
     public void showQuitMessage() {
         printStream.println("You are quitting the application.");
     }
-}
+
+    public void displayCheckOutConfirmationMessage(Book book) {
+        printStream.println("You successfully checked out " + book.getTitle());
+    }
+
+    public void askWhichBookToCheckOut() {
+        printStream.println("Which book would you like to check out?");
+    }
+ }

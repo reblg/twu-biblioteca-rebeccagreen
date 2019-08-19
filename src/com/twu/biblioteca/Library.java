@@ -16,15 +16,29 @@ public class Library {
         this.bookList = bookList;
     }
 
-//    public void showWelcomeMessage(){
-//
-//        printStream.println("welcome to rebecca and syd's library!");
-//    }
-
     public void printBooklist(){
         for (Book book : bookList){
-            book.printBook(printStream);
+            if(!book.getCheckedOut()) {
+                book.printBook(printStream);
+            }
         }
+    }
+
+    public void checkOutBook(Book book) {
+        book.setCheckedOut(true);
+    }
+
+    public ArrayList<Book> getBookList() {
+        return bookList;
+    }
+
+    public Book findBookByTitle(String title) {
+        for (Book book : bookList) {
+            if(book.getTitle().equals(title)) {
+                return book;
+            }
+        }
+        return null;
     }
 
 
