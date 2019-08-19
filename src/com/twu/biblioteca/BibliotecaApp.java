@@ -1,26 +1,22 @@
 package com.twu.biblioteca;
 
-import sun.font.TrueTypeFont;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class BibliotecaApp {
 
     private final BufferedReader reader;
-    private OutputStream outputStream;
+//    private OutputStream outputStream;
     private Library library;
-    private PrintStream printStream;
+//    private PrintStream printStream;
     private BibliotecaAppView bibliotecaAppView;
 
 
 
-    public BibliotecaApp(Library library, OutputStream outputStream, PrintStream printStream, BufferedReader reader, BibliotecaAppView bibliotecaAppView) {
-        this.outputStream = outputStream;
+    public BibliotecaApp(Library library, BufferedReader reader, BibliotecaAppView bibliotecaAppView) {
+//        this.outputStream = outputStream;
         this.library = library;
-        this.printStream = printStream;
+//        this.printStream = printStream;
         this.reader = reader;
         this.bibliotecaAppView = bibliotecaAppView;
     }
@@ -35,12 +31,13 @@ public class BibliotecaApp {
         bookList.add(checkedOutBook);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+//        ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+//        PrintStream printStream = new PrintStream(System.out);
         PrintStream printStream = new PrintStream(System.out);
         BibliotecaAppView bibliotecaAppView = new BibliotecaAppView(printStream);
 
         Library lib = new Library(printStream, bookList);
-        BibliotecaApp app = new BibliotecaApp(lib, byteOutputStream, printStream, reader, bibliotecaAppView);
+        BibliotecaApp app = new BibliotecaApp(lib, reader, bibliotecaAppView);
 
         app.start();
     }
