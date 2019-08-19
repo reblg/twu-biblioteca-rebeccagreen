@@ -19,8 +19,16 @@ public class BibliotecaAppTest {
     private PrintStream mockPrintStream;
 
     private ArrayList<Book> bookListWithOneMockBook;
-    private Book mockBook;
+    private ArrayList<Book> bookListWithTwoMockBooks;
+    private ArrayList<Book> bookListWithOneCheckedOutBook;
+    private ArrayList<Book> bookListWithOneRealBook;
 
+//    private Library libraryWithOneRealBook;
+
+    private Book mockBook;
+    private Book mockBook2;
+    private Book mockCheckOutBook;
+    private Book nineteenEightFour;
 
     @Before
     public void setUp() {
@@ -35,14 +43,33 @@ public class BibliotecaAppTest {
 //        print stream
         mockPrintStream = mock(PrintStream.class);
 
+
+
 //        book lists
         bookListWithOneMockBook = new ArrayList<Book>();
+        bookListWithTwoMockBooks = new ArrayList<Book>();
+        bookListWithOneCheckedOutBook = new ArrayList<Book>();
+        bookListWithOneRealBook = new ArrayList<Book>();
 //        books
 
         mockBook = mock(Book.class);
+        mockBook2 = mock(Book.class);
+        mockCheckOutBook = mock(Book.class);
+        nineteenEightFour = new Book("1984", "GO", "2000");
+
 
 //       constructed book lists
         bookListWithOneMockBook.add(mockBook);
+
+        bookListWithTwoMockBooks.add(mockBook);
+        bookListWithTwoMockBooks.add(mockBook2);
+
+        bookListWithOneCheckedOutBook.add(mockCheckOutBook);
+
+        bookListWithOneRealBook.add(nineteenEightFour);
+
+////        library
+//        libraryWithOneRealBook = new Library(mockPrintStream, bookListWithOneRealBook);
 
     }
 
@@ -72,6 +99,7 @@ public class BibliotecaAppTest {
     @Test
     public void shouldPrintOneBookWhenOption1IsSelectedAndThereIsOneBookInTheLibrary() throws IOException {
         Library libWithMockBook = new Library(mockPrintStream, bookListWithOneMockBook);
+
         app = new BibliotecaApp(libWithMockBook, mockBufferedReader, mockBibliotecaAppView);
 
         when(mockBufferedReader.readLine()).thenReturn("1").thenReturn("q");
@@ -83,14 +111,8 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldPrintTwoBooksWhenOption1IsSelectedAndThereAreTwoBooksInTheLibrary() throws IOException {
-        ArrayList<Book> bookList = new ArrayList<Book>();
-        Book mockBook = mock(Book.class);
-        Book mockBook2 = mock(Book.class);
-        bookList.add(mockBook);
-        bookList.add(mockBook2);
-
-        Library libWithMockBook = new Library(mockPrintStream, bookList);
-        app = new BibliotecaApp(libWithMockBook, mockBufferedReader, mockBibliotecaAppView);
+        Library libWithTwoMockBooks = new Library(mockPrintStream, bookListWithTwoMockBooks);
+        app = new BibliotecaApp(libWithTwoMockBooks, mockBufferedReader, mockBibliotecaAppView);
 
         when(mockBufferedReader.readLine()).thenReturn("1").thenReturn("q");
         app.start();
@@ -103,28 +125,23 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldDisplayWhen1IsSelectedFromOptions() throws IOException {
-
-        BibliotecaApp app = new BibliotecaApp(mockLibrary, mockBufferedReader, mockBibliotecaAppView);
-
         when(mockBufferedReader.readLine()).thenReturn("1").thenReturn("q");
 
         app.start();
+
         verify(mockLibrary).printBooklist();
     }
 
     @Test
     public void shouldInformUserOfInValidInputWhenInputIsNot1() throws IOException {
-        BibliotecaApp app = new BibliotecaApp(mockLibrary, mockBufferedReader, mockBibliotecaAppView);
-
         when(mockBufferedReader.readLine()).thenReturn("t").thenReturn("1").thenReturn("q");
 
         app.start();
+
         verify(mockBibliotecaAppView, atLeastOnce()).printInvalidInputMessage();
     }
     @Test
     public void shouldQuitApplicationWhenUserInputsQFromOptionMenu() throws IOException {
-
-        BibliotecaApp app = new BibliotecaApp(mockLibrary, mockBufferedReader, mockBibliotecaAppView);
 
         when(mockBufferedReader.readLine()).thenReturn("q");
 
@@ -135,84 +152,69 @@ public class BibliotecaAppTest {
 
     @Test
     public void libraryShouldNotDisplayAnythingIfOnlyBookInLibraryIsCheckedOut() throws IOException {
-        ArrayList<Book> bookList = new ArrayList<Book>();
-        Book mockCheckedOutBook = mock(Book.class);
-        bookList.add(mockCheckedOutBook);
 
-        Library lib = new Library(mockPrintStream, bookList);
+        Library lib = new Library(mockPrintStream, bookListWithOneCheckedOutBook);
         app = new BibliotecaApp(lib, mockBufferedReader, mockBibliotecaAppView);
 
-        when(mockCheckedOutBook.getCheckedOut()).thenReturn(true);
+        when(mockCheckOutBook.getCheckedOut()).thenReturn(true);
 
         when(mockBufferedReader.readLine()).thenReturn("1").thenReturn("q");
 
         app.start();
 
-        verify(mockCheckedOutBook, never()).printBook(mockPrintStream);
+        verify(mockCheckOutBook, never()).printBook(mockPrintStream);
     }
 
     @Test
     public void shouldCheckOutBookIfUserChecksOutBook() throws IOException {
-        ArrayList<Book> bookList = new ArrayList<Book>();
-        Book book = new Book("1984", "GO", "2000");
-        bookList.add(book);
+        Library lib = new Library(mockPrintStream, bookListWithOneRealBook);
 
-        Library lib = new Library(mockPrintStream, bookList);
         app = new BibliotecaApp(lib, mockBufferedReader, mockBibliotecaAppView);
 
         when(mockBufferedReader.readLine()).thenReturn("2").thenReturn("1984").thenReturn("q");
 
         app.start();
 
-        assertTrue(book.getCheckedOut());
-
-        verify(mockBibliotecaAppView).displayCheckOutConfirmationMessage(book);
+        assertTrue(nineteenEightFour.getCheckedOut());
+        verify(mockBibliotecaAppView).displayCheckOutConfirmationMessage(nineteenEightFour);
     }
 
     @Test
     public void shouldDisplayUnsuccessfulCheckOutMessageIfCannotCheckOutBook() throws IOException {
-        ArrayList<Book> bookList = new ArrayList<Book>();
-        Book book = new Book("1984", "GO", "2000");
-        book.setCheckedOut(true);
-        bookList.add(book);
+        nineteenEightFour.setCheckedOut(true);
 
-        Library lib = new Library(mockPrintStream, bookList);
+        Library lib = new Library(mockPrintStream, bookListWithOneRealBook);
         app = new BibliotecaApp(lib, mockBufferedReader, mockBibliotecaAppView);
 
         when(mockBufferedReader.readLine()).thenReturn("2").thenReturn("1984").thenReturn("q");
 
         app.start();
 
-        verify(mockBibliotecaAppView).displayCheckOutUnsuccessfulMessage(book);
+        verify(mockBibliotecaAppView).displayCheckOutUnsuccessfulMessage(nineteenEightFour);
     }
 
     @Test
     public void shouldReturnBookIfUserReturnsBook() throws IOException {
-        ArrayList<Book> bookList = new ArrayList<Book>();
-        Book book = new Book("1984", "GO", "2000");
-        book.setCheckedOut(true);
-        bookList.add(book);
+        nineteenEightFour.setCheckedOut(true);
 
-        Library lib = new Library(mockPrintStream, bookList);
+        Library lib = new Library(mockPrintStream, bookListWithOneRealBook);
         app = new BibliotecaApp(lib, mockBufferedReader, mockBibliotecaAppView);
 
         when(mockBufferedReader.readLine()).thenReturn("3").thenReturn("1984").thenReturn("q");
 
         app.start();
 
-        assertFalse(book.getCheckedOut());
+        assertFalse(nineteenEightFour.getCheckedOut());
 
-        verify(mockBibliotecaAppView).displayBookReturnConfirmation(book);
+        verify(mockBibliotecaAppView).displayBookReturnConfirmation(nineteenEightFour);
     }
 
     @Test
     public void shouldDisplayUnsuccessfulReturnMessageIfCannotBeReturned() throws IOException {
-        ArrayList<Book> bookList = new ArrayList<Book>();
-        Book book = new Book("1984", "GO", "2000");
-        book.setCheckedOut(true);
-        bookList.add(book);
+        nineteenEightFour.setCheckedOut(true);
 
-        Library lib = new Library(mockPrintStream, bookList);
+        Library lib = new Library(mockPrintStream, bookListWithOneRealBook);
+
         app = new BibliotecaApp(lib, mockBufferedReader, mockBibliotecaAppView);
 
         when(mockBufferedReader.readLine()).thenReturn("3").thenReturn("hp").thenReturn("q");
