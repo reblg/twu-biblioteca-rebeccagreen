@@ -28,8 +28,11 @@ public class BibliotecaApp {
     public static void main(String[] args) throws IOException {
         ArrayList<Book> bookList = new ArrayList<Book>();
 
-        bookList.add(new Book("1984", "George Orwell", "2010"));
-        bookList.add(new Book("Beloved", "Toni Morrison", "2005"));
+        bookList.add(new Book("1984", "George Orwell", "2018"));
+        bookList.add(new Book("Beloved", "Toni Morrison", "2010"));
+        Book checkedOutBook = new Book("hp", "jk", "2012");
+        checkedOutBook.setCheckedOut(true);
+        bookList.add(checkedOutBook);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
@@ -53,11 +56,22 @@ public class BibliotecaApp {
                 library.printBooklist();
                 choice = getUserInput().toLowerCase();
             }
+            else if(choice.equals("2")) {
+                library.printBooklist();
+                checkOutBookSequence();
+                bibliotecaAppView.displayOptionMenu();
+                choice = getUserInput().toLowerCase();
+            }
+            else if(choice.equals("3")) {
+                returnBookSequence();
+                bibliotecaAppView.displayOptionMenu();
+                choice = getUserInput().toLowerCase();
+            }
             else if(choice.equals("q")){
                 bibliotecaAppView.showQuitMessage();
                 running = false;
             }
-            else{
+            else {
                 bibliotecaAppView.printInvalidInputMessage();
                 bibliotecaAppView.displayWelcomeMessage();
                 choice = getUserInput().toLowerCase();
@@ -65,6 +79,39 @@ public class BibliotecaApp {
         }
 
     }
+
+    private void returnBookSequence() throws IOException {
+
+        bibliotecaAppView.askWhichBookToReturn();
+
+        String bookTitleToReturn = getUserInput();
+
+        Book bookToReturn = library.findBookByTitle(bookTitleToReturn);
+        if(bookToReturn != null) {
+            bookToReturn.setCheckedOut(false);
+            bibliotecaAppView.displayBookReturnConfirmation(bookToReturn);
+        } else {
+            bibliotecaAppView.displayBookReturnUnsuccessfulMessage();
+        }
+
+    }
+
+    private void checkOutBookSequence() throws IOException {
+        bibliotecaAppView.askWhichBookToCheckOut();
+        String bookTitleToCheckOut = getUserInput();
+        Book bookToCheckout = library.findBookByTitle(bookTitleToCheckOut);
+
+        if (!bookToCheckout.getCheckedOut()) {
+            library.checkOutBook(bookToCheckout);
+            bibliotecaAppView.displayCheckOutConfirmationMessage(bookToCheckout);
+            bibliotecaAppView.displayOptionMenu();
+        }
+        else {
+            bibliotecaAppView.displayCheckOutUnsuccessfulMessage(bookToCheckout);
+        }
+    }
+
+
 
     private String getUserInput() throws IOException {
         return reader.readLine();
