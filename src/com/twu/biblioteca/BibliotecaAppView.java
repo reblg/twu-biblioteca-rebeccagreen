@@ -22,6 +22,7 @@ public class BibliotecaAppView {
         printStream.println("1 - List of Books");
         printStream.println("2 - Check out a book");
         printStream.println("3 - Return a book");
+        printStream.println("4 - List of Movies");
         printStream.println("Please Enter the Number of Your Choice Here: ");
     }
 
