@@ -1,8 +1,6 @@
 package com.twu.biblioteca;
 
-import java.awt.print.Printable;
 import java.io.PrintStream;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Library {
@@ -28,10 +26,6 @@ public class Library {
         book.setCheckedOut(true);
     }
 
-    public ArrayList<Book> getBookList() {
-        return bookList;
-    }
-
     public Book findBookByTitle(String title) {
         for (Book book : bookList) {
             if(book.getTitle().equals(title)) {
@@ -40,6 +34,5 @@ public class Library {
         }
         return null;
     }
-
 
 }

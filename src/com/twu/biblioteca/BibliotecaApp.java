@@ -4,19 +4,14 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class BibliotecaApp {
-
     private final BufferedReader reader;
-//    private OutputStream outputStream;
     private Library library;
-//    private PrintStream printStream;
     private BibliotecaAppView bibliotecaAppView;
 
 
 
     public BibliotecaApp(Library library, BufferedReader reader, BibliotecaAppView bibliotecaAppView) {
-//        this.outputStream = outputStream;
         this.library = library;
-//        this.printStream = printStream;
         this.reader = reader;
         this.bibliotecaAppView = bibliotecaAppView;
     }
@@ -31,8 +26,6 @@ public class BibliotecaApp {
         bookList.add(checkedOutBook);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-//        ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
-//        PrintStream printStream = new PrintStream(System.out);
         PrintStream printStream = new PrintStream(System.out);
         BibliotecaAppView bibliotecaAppView = new BibliotecaAppView(printStream);
 
@@ -45,7 +38,7 @@ public class BibliotecaApp {
     public void start() throws IOException {
         bibliotecaAppView.displayWelcomeMessage();
         bibliotecaAppView.displayOptionMenu();
-        Boolean running = true;
+        boolean running = true;
         String choice = getUserInput();
 
         while (running){
@@ -78,12 +71,12 @@ public class BibliotecaApp {
     }
 
     private void returnBookSequence() throws IOException {
-
         bibliotecaAppView.askWhichBookToReturn();
 
         String bookTitleToReturn = getUserInput();
 
         Book bookToReturn = library.findBookByTitle(bookTitleToReturn);
+
         if(bookToReturn != null) {
             bookToReturn.setCheckedOut(false);
             bibliotecaAppView.displayBookReturnConfirmation(bookToReturn);
