@@ -8,6 +8,7 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -138,7 +139,7 @@ public class BibliotecaAppTest {
         BibliotecaAppView mockBibliotecaAppView = mock(BibliotecaAppView.class);
         BibliotecaApp app = new BibliotecaApp(mockLibrary, mockOutputStream, mockPrintStream, bufferedReader, mockBibliotecaAppView);
 
-        when(bufferedReader.readLine()).thenReturn("2").thenReturn("1").thenReturn("q");
+        when(bufferedReader.readLine()).thenReturn("t").thenReturn("1").thenReturn("q");
 
         app.start();
         verify(mockBibliotecaAppView, atLeastOnce()).printInvalidInputMessage();
@@ -195,4 +196,44 @@ public class BibliotecaAppTest {
 
         verify(mockBibliotecaAppView).displayCheckOutConfirmationMessage(book);
     }
+
+    @Test
+    public void shouldDisplayUnsuccessfulCheckOutMessageIfCannotCheckOutBook() throws IOException {
+        ArrayList<Book> bookList = new ArrayList<Book>();
+        Book book = new Book("1984", "GO", "2000");
+        book.setCheckedOut(true);
+        bookList.add(book);
+
+        OutputStream mockOutputStream = mock(OutputStream.class);
+        PrintStream printStream = new PrintStream(mockOutputStream);
+        Library lib = new Library(mockPrintStream, bookList);
+        app = new BibliotecaApp(lib, mockOutputStream, printStream, bufferedReader, mockBibliotecaAppView);
+
+        when(bufferedReader.readLine()).thenReturn("2").thenReturn("1984").thenReturn("q");
+
+        app.start();
+
+        verify(mockBibliotecaAppView).displayCheckOutUnsuccessfulMessage(book);
+    }
+
+    @Test
+    public void shouldReturnBookIfUserReturnsBook() throws IOException {
+        ArrayList<Book> bookList = new ArrayList<Book>();
+        Book book = new Book("1984", "GO", "2000");
+        book.setCheckedOut(true);
+        bookList.add(book);
+        OutputStream mockOutputStream = mock(OutputStream.class);
+        PrintStream printStream = new PrintStream(mockOutputStream);
+        Library lib = new Library(mockPrintStream, bookList);
+        app = new BibliotecaApp(lib, mockOutputStream, printStream, bufferedReader, mockBibliotecaAppView);
+
+        when(bufferedReader.readLine()).thenReturn("3").thenReturn("1984").thenReturn("q");
+
+        app.start();
+
+        assertFalse(book.getCheckedOut());
+
+        verify(mockBibliotecaAppView).displayBookReturnConfirmation(book);
+    }
+
 }

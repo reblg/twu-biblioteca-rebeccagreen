@@ -30,7 +30,7 @@ public class Book {
     }
 
     public void printBook(PrintStream printStream){
-        printStream.println(this.getTitle() + " " + this.getAuthor() + " in " + this.getYear());
+        printStream.println(this.getTitle() + " " + this.getAuthor() + " - " + this.getYear());
 
     }
 

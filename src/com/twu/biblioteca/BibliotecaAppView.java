@@ -21,6 +21,7 @@ public class BibliotecaAppView {
         printStream.println("Options");
         printStream.println("1 - List of Books");
         printStream.println("2 - Check out a book");
+        printStream.println("3 - Return a book");
         printStream.println("Please Enter the Number of Your Choice Here: ");
     }
 
@@ -35,4 +36,17 @@ public class BibliotecaAppView {
     public void askWhichBookToCheckOut() {
         printStream.println("Which book would you like to check out?");
     }
- }
+
+    public void askWhichBookToReturn() {
+        printStream.println("Which book would you like to return?");
+    }
+
+    public void displayCheckOutUnsuccessfulMessage(Book book) {
+        printStream.println("Sorry, " + book.getTitle() + " is not available.");
+        printStream.println("Please enter a valid title.");
+    }
+
+    public void displayBookReturnConfirmation(Book book) {
+        printStream.println("You successfully returned " + book.getTitle());
+    }
+}
