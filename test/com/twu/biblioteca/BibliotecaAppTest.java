@@ -25,6 +25,7 @@ public class BibliotecaAppTest {
     private ArrayList<Book> bookListWithOneRealBook;
 
     private ArrayList<Movie> movieListWithOneMockMovie;
+    private ArrayList<Movie> movieListWithOneRealMovie;
 
 
     private Book mockBook;
@@ -33,6 +34,7 @@ public class BibliotecaAppTest {
     private Book nineteenEightFour;
 
     private Movie mockMovie;
+    private Movie shrek;
 
     @Before
     public void setUp() {
@@ -46,7 +48,6 @@ public class BibliotecaAppTest {
 
 //        print stream
         mockPrintStream = mock(PrintStream.class);
-
 
 
 //        book lists
@@ -74,13 +75,16 @@ public class BibliotecaAppTest {
 
         //        movielist
         movieListWithOneMockMovie = new ArrayList<Movie>();
+        movieListWithOneRealMovie = new ArrayList<Movie>();
+
 
 
 //        movies
         mockMovie = mock(Movie.class);
-
+        shrek = new Movie("shrek", "dreamworks", "2000", "8");
 ////    constructed Movie List
         movieListWithOneMockMovie.add(mockMovie);
+        movieListWithOneRealMovie.add(shrek);
 
 
     }
@@ -94,7 +98,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldDisplayOptionsAfterWelcomeMessage() throws IOException {
-        when(mockBufferedReader.readLine()).thenReturn("1").thenReturn("q");
+        when(mockBufferedReader.readLine()).thenReturn("q");
         app.start();
         verify(mockBibliotecaAppView).displayOptionMenu();
     }
@@ -152,6 +156,7 @@ public class BibliotecaAppTest {
 
         verify(mockBibliotecaAppView, atLeastOnce()).printInvalidInputMessage();
     }
+
     @Test
     public void shouldQuitApplicationWhenUserInputsQFromOptionMenu() throws IOException {
 
@@ -218,7 +223,7 @@ public class BibliotecaAppTest {
 
         assertFalse(nineteenEightFour.getCheckedOut());
 
-        verify(mockBibliotecaAppView).displayBookReturnConfirmation(nineteenEightFour);
+        verify(mockBibliotecaAppView).displayReturnConfirmationMessage(nineteenEightFour);
     }
 
     @Test
@@ -233,7 +238,7 @@ public class BibliotecaAppTest {
 
         app.start();
 
-        verify(mockBibliotecaAppView).displayBookReturnUnsuccessfulMessage();
+        verify(mockBibliotecaAppView).displayLibraryItemReturnUnsuccessfulMessage();
     }
 
     @Test
@@ -246,6 +251,21 @@ public class BibliotecaAppTest {
         app.start();
 
         verify(mockMovie).printMovie(mockPrintStream);
+    }
+
+    @Test
+    public void shouldCheckOutShrekWhenUserChecksItOut() throws IOException {
+        Library lib = new Library(mockPrintStream, bookListWithOneRealBook, movieListWithOneRealMovie);
+
+        app = new BibliotecaApp(lib, mockBufferedReader, mockBibliotecaAppView);
+
+        when(mockBufferedReader.readLine()).thenReturn("5").thenReturn("shrek").thenReturn("q");
+
+        app.start();
+
+        assertTrue(shrek.getCheckedOut());
+        verify(mockBibliotecaAppView).displayCheckOutConfirmationMessage(shrek);
+
     }
 
 }

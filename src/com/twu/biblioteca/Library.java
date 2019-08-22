@@ -29,14 +29,23 @@ public class Library {
         }
     }
 
-    public void checkOutBook(Book book) {
-        book.setCheckedOut(true);
-    }
+//    public void checkOutBook(Book book) {
+//        book.setCheckedOut(true);
+//    }
 
     public Book findBookByTitle(String title) {
         for (Book book : bookList) {
             if(book.getTitle().equals(title)) {
                 return book;
+            }
+        }
+        return null;
+    }
+
+    public Movie findMovieByTitle(String title) {
+        for (Movie movie : movieList) {
+            if(movie.getTitle().equals(title)) {
+                return movie;
             }
         }
         return null;

@@ -23,6 +23,7 @@ public class BibliotecaAppView {
         printStream.println("2 - Check out a book");
         printStream.println("3 - Return a book");
         printStream.println("4 - List of Movies");
+        printStream.println("5 - Check out a movie");
         printStream.println("Please Enter the Number of Your Choice Here: ");
     }
 
@@ -30,28 +31,28 @@ public class BibliotecaAppView {
         printStream.println("You are quitting the application.");
     }
 
-    public void displayCheckOutConfirmationMessage(Book book) {
-        printStream.println("You successfully checked out " + book.getTitle());
+    public void displayCheckOutConfirmationMessage(LibraryItem libraryItem) {
+        printStream.println("You successfully checked out " + libraryItem.getTitle());
     }
 
-    public void askWhichBookToCheckOut() {
-        printStream.println("Which book would you like to check out?");
+    public void askWhichItemToCheckOut() {
+        printStream.println("Which would you like to check out?");
     }
 
-    public void askWhichBookToReturn() {
+    public void askWhichItemToReturn() {
         printStream.println("Which book would you like to return?");
     }
 
-    public void displayCheckOutUnsuccessfulMessage(Book book) {
-        printStream.println("Sorry, " + book.getTitle() + " is not available.");
+    public void displayCheckOutUnsuccessfulMessage(LibraryItem libraryItem) {
+        printStream.println("Sorry, " + libraryItem.getTitle() + " is not available.");
         printStream.println("Please enter a valid title.");
     }
 
-    public void displayBookReturnConfirmation(Book book) {
-        printStream.println("You successfully returned " + book.getTitle());
+    public void displayReturnConfirmationMessage(LibraryItem libraryItem) {
+        printStream.println("You successfully returned " + libraryItem.getTitle());
     }
 
-    public void displayBookReturnUnsuccessfulMessage() {
+    public void displayLibraryItemReturnUnsuccessfulMessage() {
         printStream.println("Error returning requested item");
         printStream.println("Please enter a valid title.");
     }

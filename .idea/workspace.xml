@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a04b556c-bd20-46b3-89cc-cd11fae8ec4c" name="Default Changelist" comment="" />
+    <list default="true" id="a04b556c-bd20-46b3-89cc-cd11fae8ec4c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/twu/biblioteca/LibraryItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/biblioteca/com/twu/biblioteca/BibliotecaApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/biblioteca/com/twu/biblioteca/BibliotecaApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/biblioteca/com/twu/biblioteca/BibliotecaAppView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/biblioteca/com/twu/biblioteca/BibliotecaAppView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/biblioteca/com/twu/biblioteca/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/biblioteca/com/twu/biblioteca/Book.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/biblioteca/com/twu/biblioteca/Library.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/biblioteca/com/twu/biblioteca/Library.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/biblioteca/com/twu/biblioteca/Movie.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/biblioteca/com/twu/biblioteca/Movie.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/biblioteca/com/twu/biblioteca/BibliotecaAppTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/biblioteca/com/twu/biblioteca/BibliotecaAppTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/twu/biblioteca/BibliotecaApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/twu/biblioteca/BibliotecaApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/twu/biblioteca/BibliotecaAppView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/twu/biblioteca/BibliotecaAppView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/twu/biblioteca/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/twu/biblioteca/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/twu/biblioteca/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/twu/biblioteca/Library.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/twu/biblioteca/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/twu/biblioteca/Movie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/com/twu/biblioteca/BibliotecaAppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/twu/biblioteca/BibliotecaAppTest.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +79,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.BibliotecaApp">
+  <component name="RunManager" selected="JUnit.BibliotecaAppTest">
     <configuration name="BibliotecaApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.twu.biblioteca.BibliotecaApp" />
       <module name="biblioteca" />
@@ -93,7 +108,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BibliotecaAppTest.shouldDisplayUnsuccessfulCheckOutMessageIfCannotCheckOutBook" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BibliotecaAppTest.shouldCheckOutShrekWhenUserChecksItOut" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="biblioteca" />
       <extension name="coverage">
         <pattern>
@@ -103,7 +118,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.twu.biblioteca" />
       <option name="MAIN_CLASS_NAME" value="com.twu.biblioteca.BibliotecaAppTest" />
-      <option name="METHOD_NAME" value="shouldDisplayUnsuccessfulCheckOutMessageIfCannotCheckOutBook" />
+      <option name="METHOD_NAME" value="shouldCheckOutShrekWhenUserChecksItOut" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -143,11 +158,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.BibliotecaApp" />
         <item itemvalue="JUnit.BibliotecaAppTest" />
+        <item itemvalue="Application.BibliotecaApp" />
+        <item itemvalue="JUnit.BibliotecaAppTest.shouldCheckOutShrekWhenUserChecksItOut" />
         <item itemvalue="JUnit.BibliotecaAppTest.shouldDisplayUnsuccessfulReturnMessageIfCannotBeReturned" />
         <item itemvalue="JUnit.BibliotecaAppTest.shouldReturnBookIfUserReturnsBook" />
-        <item itemvalue="JUnit.BibliotecaAppTest.shouldDisplayUnsuccessfulCheckOutMessageIfCannotCheckOutBook" />
       </list>
     </recent_temporary>
   </component>

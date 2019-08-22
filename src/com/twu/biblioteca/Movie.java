@@ -2,7 +2,7 @@ package com.twu.biblioteca;
 
 import java.io.PrintStream;
 
-public class Movie {
+public class Movie extends LibraryItem {
     private String title;
     private String director;
     private String year;
@@ -32,4 +32,5 @@ public class Movie {
         printStream.println(this.getTitle() + " - " + this.getDirector() + " - " + this.getYear());
 
     }
+
 }
